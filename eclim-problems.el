@@ -43,8 +43,6 @@
 
 (defvar eclim-autoupdate-problems t)
 
-(defvar eclim-problems-mode-hook nil)
-
 (defvar eclim--problems-filter-description "")
 (defvar eclim--problems-project nil) ;; problems are relative to this project
 (defvar eclim--problems-file nil) ;; problems are relative to this file (when eclim--problems-filefilter is non-nil)
