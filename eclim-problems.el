@@ -73,7 +73,7 @@
 (defconst eclim--problems-buffer-name "*eclim: problems*")
 (defconst eclim--problems-compilation-buffer-name "*compilation: eclim*")
 
-(defun eclim--problems-mode ()
+(defun eclim-problems-mode ()
   (kill-all-local-variables)
   (buffer-disable-undo)
   (setq major-mode 'eclim-problems-mode
@@ -332,7 +332,7 @@ create and initialize a new buffer."
           ;; (setq eclim--problems-project (eclim--project-name))
           (setq eclim--problems-file buffer-file-name)
           (set-buffer buf)
-          (eclim--problems-mode)
+          (eclim-problems-mode)
                                         ;(eclim-problems-buffer-refresh)
           (goto-char (point-min))))))
 
@@ -345,7 +345,7 @@ without switching to it."
       (setq eclim--problems-project (eclim--project-name))
       (setq eclim--problems-file buffer-file-name)
       (set-buffer buf)
-      (eclim--problems-mode)
+      (eclim-problems-mode)
       (eclim-problems-buffer-refresh)
       (goto-char (point-min)))
     (if (not quiet)
