@@ -73,13 +73,9 @@
 (defconst eclim--problems-buffer-name "*eclim: problems*")
 (defconst eclim--problems-compilation-buffer-name "*compilation: eclim*")
 
-(defun eclim-problems-mode ()
-  (kill-all-local-variables)
+(define-derived-mode eclim-problems-mode fundamental-mode "eclim/problems"
   (buffer-disable-undo)
-  (setq major-mode 'eclim-problems-mode
-        mode-name "eclim/problems"
-        mode-line-process ""
-        truncate-lines t
+  (setq truncate-lines t
         buffer-read-only t
         default-directory (eclim/workspace-dir))
   (setq-local line-move-visual nil)
@@ -102,9 +98,7 @@
 
               'global-mode-string
               "-%-"))
-  (hl-line-mode t)
-  (use-local-map eclim-problems-mode-map)
-  (run-mode-hooks 'eclim-problems-mode-hook))
+  (hl-line-mode t))
 
 (defun eclim--problem-goto-pos (p)
   (save-restriction
