@@ -72,6 +72,7 @@
 (defconst eclim--problems-compilation-buffer-name "*compilation: eclim*")
 
 (define-derived-mode eclim-problems-mode fundamental-mode "eclim/problems"
+  "Major mode for viewing problems in eclim projects"
   (buffer-disable-undo)
   (setq truncate-lines t
         buffer-read-only t
