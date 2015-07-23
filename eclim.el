@@ -357,7 +357,9 @@ FILENAME is given, return that file's  project name instead."
     (let* ((parts (split-string path-to-file "!"))
            (archive-name (replace-regexp-in-string eclim--compressed-urls-regexp "" (first parts)))
            (file-name (second parts)))
-      (find-file-other-window archive-name)
+      (let ((large-file-warning-threshold (max large-file-warning-threshold
+                                               30000000)))
+        (find-file-other-window archive-name))
       (beginning-of-buffer)
       (re-search-forward (replace-regexp-in-string
                           eclim--compressed-file-path-removal-regexp ""
@@ -370,7 +372,7 @@ FILENAME is given, return that file's  project name instead."
         (kill-buffer old-buffer)))))
 
 (defun eclim--find-display-results (pattern results &optional open-single-file)
-  (let ((results (remove-if (lambda (result) (string-match (rx bol (or "jar" "zip") ":") (assoc-default 'filename result))) results)))
+  (let ((results (remove-if (lambda (result) (s-suffix-p ".class" (assoc-default 'filename result))) results)))
     (if (and (= 1 (length results)) open-single-file) (eclim--visit-declaration (elt results 0))
       (pop-to-buffer (get-buffer-create "*eclim: find"))
       (let ((buffer-read-only nil))
