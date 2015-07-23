@@ -382,7 +382,10 @@ FILENAME is given, return that file's  project name instead."
         (insert (concat "eclim java_search -p " pattern))
         (newline)
         (loop for result across results
-              do (insert (eclim--format-find-result result default-directory)))
+              do (when (not (string-match
+                             (rx bol (or "jar" "zip") ":")
+                             (assoc-default 'filename result)))
+                   (insert (eclim--format-find-result result default-directory))))
         (goto-char 0)
         (grep-mode)))))
 
