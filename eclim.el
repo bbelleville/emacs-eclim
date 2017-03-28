@@ -387,11 +387,12 @@ FILENAME is given, return that file's  project name instead."
                              (assoc-default 'filename result)))
                    (insert (eclim--format-find-result result default-directory))))
         (goto-char 0)
-        (grep-mode)))))
+        (compilation-mode)
+        (setq-local compilation-error-face compilation-info-face)))))
 
 (defun eclim--format-find-result (line &optional directory)
   (let ((converted-directory (replace-regexp-in-string "\\\\" "/" (assoc-default 'filename line))))
-    (format "%s:%d:%d:%s\n"
+    (format "%s:%d:%d: %s\n"
             (if converted-directory
                 (replace-regexp-in-string (concat (regexp-quote directory) "/?") "" converted-directory)
               converted-directory)

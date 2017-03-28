@@ -439,7 +439,7 @@ is convenient as it lets the user navigate between errors using
 `next-error' (\\[next-error])."
   (interactive)
   (lexical-let ((filecol-size (eclim--problems-filecol-size))
-                (project-directory (concat (eclim--project-dir buffer-file-name) "/"))
+                (project-directory (concat (eclim--project-dir) "/"))
                 (compil-buffer (get-buffer-create eclim--problems-compilation-buffer-name)))
     (eclim--with-problems-list problems
       (with-current-buffer compil-buffer
@@ -452,7 +452,7 @@ is convenient as it lets the user navigate between errors using
         (let ((errors 0) (warnings 0))
           (loop for problem across (eclim--problems-filtered)
                 do (eclim--insert-problem-compilation problem filecol-size project-directory)
-                (cond ((assoc-default 'warning problem)
+                (cond ((eq t (assoc-default 'warning problem))
                        (setq warnings (1+ warnings)))
                       (t
                        (setq errors (1+ errors)))))
